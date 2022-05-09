@@ -8,9 +8,13 @@ export default class PokemonRepository {
 			baseURL: "https://pokeapi.co/api/v2/",
 		});
 	}
-    async getPokemonLimit(){
-        return this.axiosService.get('pokemon/?limit=151&offset=0')
+
+    async getPokemonLimit(limit){
+     console.log(limit)
+     let querry = limit
+     return this.axiosService.get(`pokemon/${querry}`)
     }
+
     async getPokemon(name){
         return this.axiosService.get(`pokemon/${name}/`)
     }
