@@ -38,12 +38,11 @@ export default {
 			return parameter.toUpperCase()
 		},
 
-		getPokemonsData: function(limit){
+		getPokemonsData:async function(limit){
 			this.pokemons = [];
 			const pokemonApi = new PokemonRepository();
-			pokemonApi.getPokemonLimit(limit).then(async resp => {
-			let links = resp.data;
-			console.log(links);
+			let pokemonRawData =  (await pokemonApi.getPokemonLimit(limit)).data;
+			let links = pokemonRawData;
 			if(links.next){
 				this.next = links.next.substring(34);
 			}else{
@@ -54,15 +53,13 @@ export default {
 			}else{
 				this.previous = '?offset=0&limit=151';
 			}
-			console.log(this.next,this.previous)
-				resp.data.results.forEach(element => {
-					pokemonApi.getPokemon(element.name).then(resposta => {
-					element.img = resposta.data.sprites;
-					element.id = resposta.data.id
-					this.pokemons.push(element);
-				});
-			});
-		})
+			for await (const element of pokemonRawData.results){
+				let	pokemonData = (await pokemonApi.getPokemon(element.name)).data;
+				element.img = pokemonData.sprites;
+				element.id = pokemonData.id
+				this.pokemons.push(element);
+			}
+			
 			console.log(this.pokemons)
 		}
 
@@ -125,9 +122,9 @@ a:hover {
   border-radius: 50%;
 }
 .pokemon-container{
-	display: flex;
+display: flex;
   align-items: baseline;
-	flex-flow: column;
+flex-flow: column;
   width: 150px;
   height: 200px;
 	margin-bottom: 60px;
@@ -137,7 +134,7 @@ a:hover {
 	transition: ease-in 0.3s;
 }
 .pokemon-container:hover{
-	transform: rotate(5deg);
+	transform: translateY(-2.1rem);
 }
 .pokemon-container:hover img{
 	filter: grayscale(100%);

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Pokemain from './components/PokeMain.vue'
+import Pokemain from '/src/views/PokeMain.vue'
 
 export default {
   name: 'App',
