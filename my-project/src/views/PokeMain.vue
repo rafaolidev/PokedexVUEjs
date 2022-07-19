@@ -1,38 +1,38 @@
 <template>
-  <div class="main-div">
+	<div class="main-div">
 		<div class="button-container">
 			<a href="#" class="previous round" @click="getPokemonsData(previous)">&#8249;</a>
 			<a href="#" class="next round" @click="getPokemonsData(next)">&#8250;</a>
 		</div>
-    <div class="pokemon-container" v-for="pokemon in pokemons" :key="pokemon.name">
+		<div class="pokemon-container" v-for="pokemon in pokemons" :key="pokemon.name">
 			<div class="title">
 				<span>{{ upperCase(pokemon.name) }}</span>
-			<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt=""></div>
-			<div class="pokemon-info-container">
-				<h3>#{{pokemon.id}}</h3>
-				<img :src="pokemon.img.other['official-artwork'].front_default" :alt="pokemon.name">
-			</div>
-    </div>
-  </div>
+				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt=""></div>
+				<div class="pokemon-info-container">
+					<h3>#{{pokemon.id}}</h3>
+					<img :src="pokemon.img.other['official-artwork'].front_default" :alt="pokemon.name">
+				</div>
+		</div>
+	</div>
 </template>
 
 <script>
 import PokemonRepository from "@/services/PokemonRepository.vue";
 export default {
-  name: 'PokeMain',
-  data() {
+	name: 'PokeMain',
+	data() {
 		return {
-      pokemons:[],
+			pokemons:[],
 			next:'',
 			previous:'',
 		};
 	},
-  async created() {
+	async created() {
 		this.limit = '?offset=0&limit=151'
 		this.getPokemonsData(this.limit);
 
 	},
-  methods: {
+	methods: {
 
 		upperCase: function(parameter){
 			return parameter.toUpperCase()
@@ -63,7 +63,7 @@ export default {
 			console.log(this.pokemons)
 		}
 
-  }
+	}
 }
 </script>
 
@@ -75,62 +75,63 @@ body{
 }
 .main-div{
 	display: flex;
-  max-width: 1000px;
-  height: auto;
-  flex-flow: wrap;
-  justify-content: space-between;
-	margin: auto;
+	max-width: 1000px;
+	height: auto;
+	flex-flow: wrap;
+	justify-content: space-between;
+	margin:50px auto;
 }
 .button-container{
 	width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 .next{
 	position: fixed;
-  right: 13%;
-  margin-top: 50%;
+	right: 13%;
+	margin-top: 50%;
 }
 .previous{
 	position: fixed;
-  left: 13%;
-  margin-top: 50%;
+	left: 13%;
+	margin-top: 50%;
 }
 a {
-  text-decoration: none;
-  display: inline-block;
-  padding: 8px 16px;
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
 }
 
 a:hover {
-  background-color: #ddd;
-  color: black;
+	background-color: #ddd;
+	color: black;
 }
 
 .previous {
-  background-color: #f1f1f1;
-  color: black;
+	background-color: #f1f1f1;
+	color: black;
 }
 
 .next {
-  background-color: #bca136;
-  color: white;
+	background-color: #bca136;
+	color: white;
 }
 
 .round {
-  border-radius: 50%;
+	border-radius: 50%;
 }
 .pokemon-container{
-display: flex;
-  align-items: baseline;
-flex-flow: column;
-  width: 150px;
-  height: 200px;
+	z-index: 10;
+	display: flex;
+	align-items: baseline;
+	flex-flow: column;
+	width: 150px;
+	height: 200px;
 	margin-bottom: 60px;
-  border-top-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  box-shadow: 0px 35px 50px rgb(0 0 0 / 20%);
+	border-top-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	box-shadow: 0px 35px 50px rgb(0 0 0 / 20%);
 	transition: ease-in 0.3s;
 }
 .pokemon-container:hover{
@@ -142,21 +143,21 @@ flex-flow: column;
 .pokemon-info-container{
 	width: 100%;
 	display: flex;
-  height: 140px;
-  align-items: center;
-  justify-content: space-around;
+	height: 140px;
+	align-items: center;
+	justify-content: space-around;
 }
 .title{
 	width: 100%;
-  height: 60px;
-  background:#bca136;
-  border-top-left-radius: inherit;
+	height: 60px;
+	background:#bca136;
+	border-top-left-radius: inherit;
 	color: white;
 	font-weight: 300;
-  display: flex;
-  border-top-right-radius: inherit;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	border-top-right-radius: inherit;
+	justify-content: center;
+	align-items: center;
 	transition: ease-in-out 1s;
 }
 .pokemon-container:hover .title {
